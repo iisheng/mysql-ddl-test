@@ -5,3 +5,6 @@ spring:
     password: mGy6GAzdawFPTJ7R
   application:
     name: mysql-ddl-test
+server:
+  servlet:
+    context-path: /mysql-ddl-test

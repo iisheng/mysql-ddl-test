@@ -20,8 +20,17 @@ public class UserServiceTest {
     private IUserService iUserService;
 
     @Test
-    public void randomGet(){
+    public void randomGet() {
         iUserService.randomGet();
     }
 
+    @Test
+    public void randomCreate() {
+        iUserService.randomCreate();
+    }
+
+    @Test
+    public void randomUpdate() {
+        iUserService.randomUpdate();
+    }
 }
