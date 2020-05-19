@@ -3,13 +3,16 @@ package cn.iisheng.test.service.impl;
 import cn.iisheng.test.entity.User;
 import cn.iisheng.test.mapper.UserMapper;
 import cn.iisheng.test.service.IUserService;
+import cn.iisheng.test.template.RandomGetTemplate;
+import cn.iisheng.test.template.RandomUpdateTemplate;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.TimeUnit;
+import java.time.LocalDateTime;
 
 /**
  * @author iisheng
@@ -20,36 +23,62 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    @Autowired
+    private IUserService iUserService;
+
+    @Autowired
+    private RandomGetTemplate randomGetTemplate;
+
+    @Autowired
+    private RandomUpdateTemplate randomUpdateTemplate;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void randomGet() {
         logger.info("do randomGet");
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        randomGetTemplate.randomExecute();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void randomUpdate() {
         logger.info("do randomUpdate");
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        randomUpdateTemplate.randomExecute();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void randomCreate() {
         logger.info("do randomCreate");
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        iUserService.create();
+    }
+
+
+    @Override
+    public void get(Long id) {
+        User user = getById(id);
+        logger.info("getById userId={}", user.getId());
+    }
+
+    @Override
+    public void update(Long id) {
+        User user = getById(id);
+        user.setAddress("测试瞎填的地址");
+        user.setDescription("测试乱填的描述");
+        updateById(user);
+        logger.info("updateById userId = {}", user.getId());
+    }
+
+    @Override
+    public void create() {
+        User user = User.builder()
+                .address("新建地址")
+                .age(18)
+                .createTime(LocalDateTime.now())
+                .modifyTime(LocalDateTime.now())
+                .name("新人")
+                .build();
+        save(user);
+        logger.info("create userId = {}", user.getId());
     }
 }

@@ -21,7 +21,7 @@ public class User {
 
     private String address;
 
-    private String desc;
+    private String description;
 
     private LocalDateTime createTime;
 
