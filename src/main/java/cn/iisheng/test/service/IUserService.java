@@ -11,7 +11,11 @@ public interface IUserService extends IService<User> {
 
     void randomGet();
 
+    void randomList();
+
     void get(Long id);
+
+    void list(Long cursor);
 
     void update(Long id);
 

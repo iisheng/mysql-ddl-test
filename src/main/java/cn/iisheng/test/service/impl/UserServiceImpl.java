@@ -4,6 +4,7 @@ import cn.iisheng.test.entity.User;
 import cn.iisheng.test.mapper.UserMapper;
 import cn.iisheng.test.service.IUserService;
 import cn.iisheng.test.template.RandomGetTemplate;
+import cn.iisheng.test.template.RandomListTemplate;
 import cn.iisheng.test.template.RandomUpdateTemplate;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
@@ -23,11 +24,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    private static final int LIMIT = 1000;
+
     @Autowired
     private IUserService iUserService;
 
     @Autowired
     private RandomGetTemplate randomGetTemplate;
+
+    @Autowired
+    private RandomListTemplate randomListTemplate;
 
     @Autowired
     private RandomUpdateTemplate randomUpdateTemplate;
@@ -37,6 +43,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void randomGet() {
         logger.info("do randomGet");
         randomGetTemplate.randomExecute();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void randomList() {
+        logger.info("do randomList");
+        randomListTemplate.randomExecute();
     }
 
     @Override
@@ -58,6 +71,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void get(Long id) {
         User user = getById(id);
         logger.info("getById userId={}", user.getId());
+    }
+
+    @Override
+    public void list(Long cursor) {
+        baseMapper.queryByCursor(cursor, LIMIT);
+        logger.info("list cursor = {}", cursor);
+
     }
 
     @Override

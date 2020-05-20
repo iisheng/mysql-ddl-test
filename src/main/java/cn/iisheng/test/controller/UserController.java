@@ -12,21 +12,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    private static final String SUCCESS = "SUCCESS";
+
     @Autowired
     private IUserService iUserService;
 
     @GetMapping("/randomGet")
-    public void randomGet() {
+    public String randomGet() {
         iUserService.randomGet();
+        return SUCCESS;
+    }
+
+
+    @GetMapping("/randomList")
+    public String randomList() {
+        iUserService.randomList();
+        return SUCCESS;
     }
 
     @GetMapping("/randomCreate")
-    public void randomCreate() {
+    public String randomCreate() {
         iUserService.randomCreate();
+        return SUCCESS;
     }
 
     @GetMapping("/randomUpdate")
-    public void randomUpdate() {
+    public String randomUpdate() {
         iUserService.randomUpdate();
+        return SUCCESS;
     }
 }
