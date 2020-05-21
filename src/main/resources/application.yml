@@ -1,8 +1,10 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test_one
     username: root
     password: mGy6GAzdawFPTJ7R
+    hikari:
+      maximum-pool-size: 20
   application:
     name: mysql-ddl-test
 server:

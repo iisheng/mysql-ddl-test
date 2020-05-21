@@ -15,6 +15,8 @@ public class User {
 
     private Long id;
 
+    private Long testId;
+
     private String name;
 
     private Integer age;

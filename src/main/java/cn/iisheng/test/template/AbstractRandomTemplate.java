@@ -26,9 +26,10 @@ public abstract class AbstractRandomTemplate {
     public abstract void concreteTask(Long id);
 
     public void randomExecute() {
-        Random r = new Random(RANDOM_SEED);
+        Random r = new Random();
         for (int i = LOOP_INIT_VALUE; i < LOOP_OVER_VALUE; i++) {
             long random = r.nextInt(BOUND);
+            System.out.println("random=" + random);
             concreteTask(random);
         }
         try {

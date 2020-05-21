@@ -6,6 +6,7 @@ import cn.iisheng.test.service.IUserService;
 import cn.iisheng.test.template.RandomGetTemplate;
 import cn.iisheng.test.template.RandomListTemplate;
 import cn.iisheng.test.template.RandomUpdateTemplate;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +70,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void get(Long id) {
-        User user = getById(id);
-        logger.info("getById userId={}", user.getId());
+        User user = getOne(new QueryWrapper<User>()
+                .lambda()
+                .eq(User::getTestId, id));
+        logger.info("getByTestId userId={}", user.getId());
     }
 
     @Override
@@ -82,10 +85,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void update(Long id) {
-        User user = getById(id);
+        User user = getOne(new QueryWrapper<User>()
+                .lambda()
+                .eq(User::getTestId, id));
         user.setAddress("测试瞎填的地址");
         user.setDescription("测试乱填的描述");
-        updateById(user);
+        update(user, new QueryWrapper<User>()
+                .lambda()
+                .eq(User::getTestId, id));
         logger.info("updateById userId = {}", user.getId());
     }
 
