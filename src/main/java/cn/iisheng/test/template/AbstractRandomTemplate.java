@@ -13,10 +13,7 @@ public abstract class AbstractRandomTemplate {
 
     private static final int LOOP_INIT_VALUE = 0;
 
-    private static final int BOUND = 1000000;
-
-    private static final int RANDOM_SEED = 1;
-
+    private static final int BOUND = 20000;
 
     /**
      * 具体任务

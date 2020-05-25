@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author iisheng
@@ -106,6 +107,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .name("新人")
                 .build();
         save(user);
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         logger.info("create userId = {}", user.getId());
     }
 }
