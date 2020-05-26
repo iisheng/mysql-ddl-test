@@ -35,4 +35,5 @@ public abstract class AbstractRandomTemplate {
             e.printStackTrace();
         }
     }
+
 }
